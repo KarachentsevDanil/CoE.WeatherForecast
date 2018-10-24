@@ -1,13 +1,14 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
+using WeatherForecast.Provider.Dto;
 
-namespace WheatherForecast.Provider.Models
+namespace WeatherForecast.Provider.Models
 {
-    public class WheaterForecastApiModel
+    public class WeatherForecastApiModel
     {
         public List<WeatherApiModel> Weather { get; set; }
-
-        [JsonProperty(PropertyName = "temp")]
+        
+        [JsonProperty(PropertyName = "main")]
         public TemperatureApiModel Temperature { get; set; }
         
         public WindApiModel Wind { get; set; }
@@ -16,12 +17,18 @@ namespace WheatherForecast.Provider.Models
         
         [JsonProperty(PropertyName = "name")]
         public string Place { get; set; }
+
+        public WeatherForecastDto ToWeatherForecastDto()
+        {
+            var weatherForecastDto = new WeatherForecastDto(this);
+            return weatherForecastDto;
+        }
     }
 
     public class WeatherApiModel
     {
         [JsonProperty(PropertyName = "temp")]
-        public string Wheater { get; set; }
+        public string Weather { get; set; }
 
         public string Description { get; set; }
 

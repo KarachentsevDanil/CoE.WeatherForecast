@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace WheatherForecast.Provider.Extensions
+namespace WeatherForecast.Provider.Extensions
 {
     public static class StringExtensions
     {
