@@ -4,7 +4,7 @@ using WeatherForecast.Provider.Api;
 using WeatherForecast.Provider.Dto;
 using WeatherForecast.Provider.Models;
 
-namespace WeatherForecast.Spa.Controllers
+namespace WeatherForecast.AngularSpa.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]

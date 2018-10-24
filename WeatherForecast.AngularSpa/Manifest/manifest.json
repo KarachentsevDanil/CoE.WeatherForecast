@@ -1,0 +1,82 @@
+﻿{
+  "$schema": "https://statics.teams.microsoft.com/sdk/v1.0/manifest/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.0",
+  "version": "1.0.0",
+  "id": "5f40aa56-ddb6-4948-85a1-fd6f9aa7f876",
+  "packageName": "com.contoso.helloworld",
+  "developer": {
+    "name": "Weather Forecast",
+    "websiteUrl": "https://www.microsoft.com",
+    "privacyUrl": "https://www.microsoft.com/privacy",
+    "termsOfUseUrl": "https://www.microsoft.com/termsofuse"
+  },
+  "name": {
+    "short": "Weather Forecast",
+    "full": "Weather Forecast App for Microsoft Teams"
+  },
+  "description": {
+    "short": "Weather Forecast App for Microsoft Teams",
+    "full": "This sample app provides a very simple app for Microsoft Teams. You can extend this to add more content and capabilities."
+  },
+  "icons": {
+    "outline": "contoso20x20.png",
+    "color": "contoso96x96.png"
+  },
+  "accentColor": "#60A18E",
+  "staticTabs": [
+    {
+      "entityId": "com.contoso.helloworld.hellotab",
+      "name": "Hello Tab",
+      "contentUrl": "https://my-spa-app.azurewebsites.net/weather-forecast",
+      "scopes": [
+        "personal"
+      ]
+    }
+  ],
+  "configurableTabs": [
+    {
+      "configurationUrl": "https://my-spa-app.azurewebsites.net/configuration",
+      "canUpdateConfiguration": true,
+      "scopes": [
+        "team"
+      ]
+    }
+  ],
+  "bots": [
+    {
+      "botId": "5f40aa56-ddb6-4948-85a1-fd6f9aa7f876",
+      "needsChannelSelector": false,
+      "isNotificationOnly": false,
+      "scopes": [
+        "team",
+        "personal"
+      ]
+    }
+  ],
+  "composeExtensions": [
+    {
+      "botId": "5f40aa56-ddb6-4948-85a1-fd6f9aa7f876",
+      "scopes": [
+        "personal",
+        "team"
+      ],
+      "commands": [
+        {
+          "id": "getRandomText",
+          "description": "Gets some random text and images that you can insert in messages for fun.",
+          "title": "Get some random text for fun",
+          "initialRun": true,
+          "parameters": [
+            {
+              "name": "cardTitle",
+              "description": "Card title to use",
+              "title": "Card title"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "permissions": [],
+  "validDomains": []
+}

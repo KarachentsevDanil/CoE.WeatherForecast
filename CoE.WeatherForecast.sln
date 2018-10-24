@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherForecast.Provider", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Spa", "Spa", "{3EFEB4C4-55C9-422B-A2E0-8D348CD0B3D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherForecast.Spa", "WeatherForecast.Spa\WeatherForecast.Spa.csproj", "{4B63171D-7699-4963-86CF-4C52BEF7B711}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherForecast.AngularSpa", "WeatherForecast.AngularSpa\WeatherForecast.AngularSpa.csproj", "{F1CD479C-2649-466D-8372-4C60D79FBCBF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,17 +21,17 @@ Global
 		{6E9C5863-9E93-4FFF-BE67-213F5B9D8C1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E9C5863-9E93-4FFF-BE67-213F5B9D8C1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E9C5863-9E93-4FFF-BE67-213F5B9D8C1A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4B63171D-7699-4963-86CF-4C52BEF7B711}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4B63171D-7699-4963-86CF-4C52BEF7B711}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4B63171D-7699-4963-86CF-4C52BEF7B711}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4B63171D-7699-4963-86CF-4C52BEF7B711}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1CD479C-2649-466D-8372-4C60D79FBCBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1CD479C-2649-466D-8372-4C60D79FBCBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1CD479C-2649-466D-8372-4C60D79FBCBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1CD479C-2649-466D-8372-4C60D79FBCBF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{6E9C5863-9E93-4FFF-BE67-213F5B9D8C1A} = {9EB3C72B-2928-484C-A4E1-C40FEDA11B53}
-		{4B63171D-7699-4963-86CF-4C52BEF7B711} = {3EFEB4C4-55C9-422B-A2E0-8D348CD0B3D9}
+		{F1CD479C-2649-466D-8372-4C60D79FBCBF} = {3EFEB4C4-55C9-422B-A2E0-8D348CD0B3D9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4F75AF01-9B8A-4FBE-8F8B-DA62518374C8}

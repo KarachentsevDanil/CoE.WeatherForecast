@@ -1,4 +1,6 @@
-﻿using WeatherForecast.Provider.Models;
+﻿using System.Linq;
+using WeatherForecast.Provider.Constants;
+using WeatherForecast.Provider.Models;
 
 namespace WeatherForecast.Provider.Dto
 {
@@ -19,6 +21,18 @@ namespace WeatherForecast.Provider.Dto
             Humidity = weatherForecastApiModel.Temperature.Humidity;
             WindSpeed = weatherForecastApiModel.Wind.Speed;
             Overcast = weatherForecastApiModel.Clouds.Overcast;
+
+            if (weatherForecastApiModel.Weather != null && weatherForecastApiModel.Weather.Any())
+            {
+                var weatherDescription = weatherForecastApiModel.Weather.FirstOrDefault();
+                WeatherDescription = weatherDescription.Description;
+                Icon = weatherDescription.Icon;
+            }
+        }
+
+        public void SetImageUrl(string baseImageUrl)
+        {
+            ImageUrl = $"{baseImageUrl}{Icon}{WeatherApiConstants.ImageExtension}";
         }
 
         public string Place { get; set; }
@@ -36,5 +50,11 @@ namespace WeatherForecast.Provider.Dto
         public double WindSpeed { get; set; }
 
         public int Overcast { get; set; }
+
+        public string WeatherDescription { get; set; }
+
+        public string Icon { get; set; }
+
+        public string ImageUrl { get; set; }
     }
 }

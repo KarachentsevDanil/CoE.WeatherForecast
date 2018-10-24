@@ -25,7 +25,9 @@ namespace WeatherForecast.Provider.Api
 
             var response = await _client.GetData<WeatherForecastApiModel>($"{_configuration.GetWeatherForecast}?{parameters}");
 
-            return response.ToWeatherForecastDto();
+            var weatherForecastDto = response.ToWeatherForecastDto();
+            weatherForecastDto.SetImageUrl(_configuration.ImageUrl);
+            return weatherForecastDto;
         }
 
         private ParameterCollection BuildParameters(WeatherForecastSearchModel model)

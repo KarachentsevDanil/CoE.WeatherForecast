@@ -5,5 +5,7 @@
         string ApiKey { get; set; }
 
         string GetWeatherForecast { get; set; }
+
+        string ImageUrl { get; set; }
     }
 }

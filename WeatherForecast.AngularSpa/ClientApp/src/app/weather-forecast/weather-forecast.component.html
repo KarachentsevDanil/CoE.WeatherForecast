@@ -1,0 +1,27 @@
+<div class="row main-block">
+  <div class="col-xs-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Weather forecast
+      </div>
+      <div class="panel-body">
+        <p *ngIf="!forecast"><em>Loading...</em></p>
+        <div *ngIf="forecast">
+          <div class="row">
+            <div class="col-sm-2">
+                <img [src]="forecast.imageUrl">
+            </div>
+            <div class="col-sm-10">
+                <div class="main-info">
+                    <span class="city bold">{{forecast.place}},</span> <i class="description bold">{{forecast.weatherDescription}}</i>
+                </div>
+                <div class="temperature-info">
+                    <span class="badge">{{forecast.temperature}} {{currentUnit}}</span> temperature from {{forecast.minTemperature}} to {{forecast.maxTemperature}} {{currentUnit}}, {{forecast.windSpeed}} m/s, overcast {{forecast.overcast}}%
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
