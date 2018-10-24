@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using WeatherForecast.Provider.Constants;
 using WeatherForecast.Provider.Models;
 
@@ -21,6 +22,9 @@ namespace WeatherForecast.Provider.Dto
             Humidity = weatherForecastApiModel.Temperature.Humidity;
             WindSpeed = weatherForecastApiModel.Wind.Speed;
             Overcast = weatherForecastApiModel.Clouds.Overcast;
+            Country = weatherForecastApiModel.SystemInfo.Country;
+            Sunrise = new DateTime(weatherForecastApiModel.SystemInfo.Sunrise * 1000).ToShortTimeString();
+            Sunset = new DateTime(weatherForecastApiModel.SystemInfo.Sunset * 1000).ToShortTimeString();
 
             if (weatherForecastApiModel.Weather != null && weatherForecastApiModel.Weather.Any())
             {
@@ -33,6 +37,11 @@ namespace WeatherForecast.Provider.Dto
         public void SetImageUrl(string baseImageUrl)
         {
             ImageUrl = $"{baseImageUrl}{Icon}{WeatherApiConstants.ImageExtension}";
+        }
+
+        public void SetCountryImageUrl(string baseImageUrl)
+        {
+            CountryImage = $"{baseImageUrl}{Country.ToLower()}{WeatherApiConstants.ImageExtension}";
         }
 
         public string Place { get; set; }
@@ -56,5 +65,13 @@ namespace WeatherForecast.Provider.Dto
         public string Icon { get; set; }
 
         public string ImageUrl { get; set; }
+
+        public string Country { get; set; }
+
+        public string Sunrise { get; set; }
+
+        public string Sunset { get; set; }
+
+        public string CountryImage { get; set; }
     }
 }

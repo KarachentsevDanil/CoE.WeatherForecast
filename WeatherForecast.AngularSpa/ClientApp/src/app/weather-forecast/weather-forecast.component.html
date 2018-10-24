@@ -13,7 +13,7 @@
             </div>
             <div class="col-sm-10">
                 <div class="main-info">
-                    <span class="city bold">{{forecast.place}},</span> <i class="description bold">{{forecast.weatherDescription}}</i>
+                    <span class="city bold">{{forecast.place}},{{forecast.country}}</span><img [src]="forecast.countryImage"> <i class="description bold">{{forecast.weatherDescription}}</i>
                 </div>
                 <div class="temperature-info">
                     <span class="badge">{{forecast.temperature}} {{currentUnit}}</span> temperature from {{forecast.minTemperature}} to {{forecast.maxTemperature}} {{currentUnit}}, {{forecast.windSpeed}} m/s, overcast {{forecast.overcast}}%

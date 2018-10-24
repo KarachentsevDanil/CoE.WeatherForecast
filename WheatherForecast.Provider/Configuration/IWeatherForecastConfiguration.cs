@@ -7,5 +7,7 @@
         string GetWeatherForecast { get; set; }
 
         string ImageUrl { get; set; }
+
+        string CountryImageUrl { get; set; }
     }
 }

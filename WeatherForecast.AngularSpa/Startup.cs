@@ -41,7 +41,8 @@ namespace WeatherForecast.AngularSpa
                 => new WeatherForecastConfiguration(
                     Configuration["WeatherForecastApi:ApiKey"],
                     Configuration["WeatherForecastApi:GetWeatherForecastEndpoint"],
-                    Configuration["WeatherForecastApi:ImageUrl"]));
+                    Configuration["WeatherForecastApi:ImageUrl"],
+                    Configuration["WeatherForecastApi:CountryImageUrl"]));
 
             services.AddWeatherForecastApiDependencies();
         }

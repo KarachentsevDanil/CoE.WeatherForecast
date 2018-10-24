@@ -26,7 +26,10 @@ namespace WeatherForecast.Provider.Api
             var response = await _client.GetData<WeatherForecastApiModel>($"{_configuration.GetWeatherForecast}?{parameters}");
 
             var weatherForecastDto = response.ToWeatherForecastDto();
+
             weatherForecastDto.SetImageUrl(_configuration.ImageUrl);
+            weatherForecastDto.SetCountryImageUrl(_configuration.ImageUrl);
+
             return weatherForecastDto;
         }
 

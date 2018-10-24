@@ -56,6 +56,10 @@ interface WeatherForecast {
   place: string;
   weatherDescription: string;
   imageUrl: string;
+  country: string;
+  sunrise: string;
+  sunset: string;
+  countryImage: string;
   icon: string;
   temperature: number;
   windSpeed: number;

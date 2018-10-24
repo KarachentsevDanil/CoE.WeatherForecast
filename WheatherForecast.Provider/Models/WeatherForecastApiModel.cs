@@ -10,7 +10,10 @@ namespace WeatherForecast.Provider.Models
         
         [JsonProperty(PropertyName = "main")]
         public TemperatureApiModel Temperature { get; set; }
-        
+
+        [JsonProperty(PropertyName = "sys")]
+        public SystemInfoApiModel SystemInfo { get; set; }
+
         public WindApiModel Wind { get; set; }
 
         public CloudsApiModel Clouds { get; set; }
@@ -60,5 +63,14 @@ namespace WeatherForecast.Provider.Models
     {
         [JsonProperty(PropertyName = "all")]
         public int Overcast { get; set; }
+    }
+
+    public class SystemInfoApiModel
+    {
+        public string Country { get; set; }
+
+        public long Sunrise { get; set; }
+
+        public long Sunset { get; set; }
     }
 }
