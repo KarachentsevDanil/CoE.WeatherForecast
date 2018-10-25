@@ -7,11 +7,6 @@ namespace WeatherForecast.Provider.Dto
 {
     public class WeatherForecastDto
     {
-        public WeatherForecastDto()
-        {
-            
-        }
-
         public WeatherForecastDto(WeatherForecastApiModel weatherForecastApiModel)
         {
             Place = weatherForecastApiModel.Place;
@@ -23,8 +18,8 @@ namespace WeatherForecast.Provider.Dto
             WindSpeed = weatherForecastApiModel.Wind.Speed;
             Overcast = weatherForecastApiModel.Clouds.Overcast;
             Country = weatherForecastApiModel.SystemInfo.Country;
-            Sunrise = new DateTime().AddSeconds(weatherForecastApiModel.SystemInfo.Sunrise).ToLocalTime().ToShortTimeString();
-            Sunset = new DateTime().AddSeconds(weatherForecastApiModel.SystemInfo.Sunset).ToLocalTime().ToShortTimeString();
+            Sunrise = weatherForecastApiModel.SystemInfo.Sunrise;
+            Sunset = weatherForecastApiModel.SystemInfo.Sunset;
 
             if (weatherForecastApiModel.Weather != null && weatherForecastApiModel.Weather.Any())
             {
@@ -68,9 +63,9 @@ namespace WeatherForecast.Provider.Dto
 
         public string Country { get; set; }
 
-        public string Sunrise { get; set; }
+        public long Sunrise { get; set; }
 
-        public string Sunset { get; set; }
+        public long Sunset { get; set; }
 
         public string CountryImage { get; set; }
     }

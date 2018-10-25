@@ -32,6 +32,11 @@ export class WeatherForecastComponent {
     }, error => console.error(error));
   }
 
+  public toLocalTime(unixTime: number) {
+    let date = new Date(unixTime * 1000);
+    return date.toLocaleTimeString();
+  }
+
   public setUnitToDispay() {
     let selectedUnit = localStorage.getItem("Unit");
 
@@ -57,8 +62,8 @@ interface WeatherForecast {
   weatherDescription: string;
   imageUrl: string;
   country: string;
-  sunrise: string;
-  sunset: string;
+  sunrise: number;
+  sunset: number;
   countryImage: string;
   icon: string;
   temperature: number;

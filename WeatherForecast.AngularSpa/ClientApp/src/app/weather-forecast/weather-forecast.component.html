@@ -23,7 +23,7 @@
                 humidity {{forecast.humidity}}%
               </div>
               <div>
-                <i class="fa fa-sun"></i> {{forecast.sunrise}} <i class="fas fa-arrow-up"></i> {{forecast.sunset}} <i class="fas fa-arrow-down"></i>
+                <i class="fa fa-sun"></i> {{toLocalTime(forecast.sunrise)}} <i class="fas fa-arrow-up"></i> {{toLocalTime(forecast.sunset)}} <i class="fas fa-arrow-down"></i>
               </div>
             </div>
           </div>
