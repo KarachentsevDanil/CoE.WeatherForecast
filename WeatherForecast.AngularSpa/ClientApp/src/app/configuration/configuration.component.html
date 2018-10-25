@@ -1,21 +1,21 @@
 <div class="row main-block">
-    <div class="col-sm-4">
-        <div class="panel panel-default">
-            <div class="panel-heading">Weather Forecast</div>
-            <div class="panel-body">
-                <div class="selectable-block">
-                    <p>Please select the city</p>
-                    <select class="form-control city-select" [(ngModel)]='selectedCity' (change)="applySelected()">
-                        <option [value]="city" *ngFor="let city of cities">{{city}}</option>
-                    </select>
-                </div>
-                <div class="selectable-block">
-                    <p>Please select units</p>
-                    <select class="form-control unit-select" [(ngModel)]='selectedUnit' (change)="applySelected()">
-                        <option [value]="unit.value" *ngFor="let unit of units">{{unit.name}}</option>
-                    </select>
-                </div>
-            </div>
+  <div class="col-sm-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">Weather Forecast Configuration</div>
+      <div class="panel-body">
+        <div class="selectable-block">
+          <p>Please select the city</p>
+          <select class="form-control city-select" [(ngModel)]='selectedCity' (change)="applySelected()">
+            <option [value]="city.value" *ngFor="let city of cities">{{city.name}}</option>
+          </select>
         </div>
+        <div class="selectable-block">
+          <p>Please select units</p>
+          <select class="form-control unit-select" [(ngModel)]='selectedUnit' (change)="applySelected()">
+            <option [value]="unit.value" *ngFor="let unit of units">{{unit.name}}</option>
+          </select>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

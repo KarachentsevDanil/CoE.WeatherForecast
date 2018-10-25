@@ -9,15 +9,22 @@
         <div *ngIf="forecast">
           <div class="row">
             <div class="col-sm-2">
-                <img [src]="forecast.imageUrl">
+              <img [src]="forecast.imageUrl">
             </div>
             <div class="col-sm-10">
-                <div class="main-info">
-                    <span class="city bold">{{forecast.place}},{{forecast.country}}</span><img [src]="forecast.countryImage"> <i class="description bold">{{forecast.weatherDescription}}</i>
-                </div>
-                <div class="temperature-info">
-                    <span class="badge">{{forecast.temperature}} {{currentUnit}}</span> temperature from {{forecast.minTemperature}} to {{forecast.maxTemperature}} {{currentUnit}}, {{forecast.windSpeed}} m/s, overcast {{forecast.overcast}}%
-                </div>
+              <div class="main-info">
+                <span class="city bold">{{forecast.place}},{{forecast.country}}</span> <img [src]="forecast.countryImage">
+                <i class="description bold">{{forecast.weatherDescription}}</i>
+              </div>
+              <div class="temperature-info">
+                <span class="badge">{{forecast.temperature}} {{currentUnit}}</span> temperature from
+                {{forecast.minTemperature}} to {{forecast.maxTemperature}} {{currentUnit}}, {{forecast.windSpeed}} m/s, {{forecast.pressure}} hPa
+                overcast {{forecast.overcast}}%, 
+                humidity {{forecast.humidity}}%
+              </div>
+              <div>
+                <i class="fa fa-sun"></i> {{forecast.sunrise}} <i class="fas fa-arrow-up"></i> {{forecast.sunset}} <i class="fas fa-arrow-down"></i>
+              </div>
             </div>
           </div>
         </div>

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 
 declare var microsoftTeams;
-declare var $;
 
 @Component({
   selector: 'app-configuration-component',
@@ -9,11 +8,19 @@ declare var $;
   styleUrls: ['./configuration.component.css']
 })
 export class ConfigurationComponent {
-  public cities = ["Kharkiv", "Kyiv", "Lviv", "Odessa"];
+  public cities : NameValue[] =[
+    { name: "London, GB", value: "London" },
+    { name: "Berlin, DE", value: "Berlin" },
+    { name: "Madrid, ES", value: "Madrid" },
+    { name: "Kharkiv, UA", value: "Kharkiv" },
+    { name: "Kyiv, UA", value: "Kyiv" },
+    { name: "Lviv, UA", value: "Lviv" },
+    { name: "Odessa, UA", value: "Odessa" }
+  ];
   public units: NameValue[] = [
     { name: "Celsius", value: "Metric" },
     { name: "Fahrenheit", value: "Imperial" },
-    { name: "Kelvin", value: "Kelvin" },
+    { name: "Kelvin", value: "Kelvin" }
   ];
 
   public selectedCity = "Kharkiv";
@@ -24,12 +31,7 @@ export class ConfigurationComponent {
     this.initMicrosoftTeams();
     microsoftTeams.settings.setValidityState(true);
   }
-
-  public ngAfterViewChecked(): void {
-    //$('.city-select').select2();
-    //$('.unit-select').select2();
-  }     
-
+  
   public applySelected() {
     localStorage.setItem("City", this.selectedCity);
     localStorage.setItem("Unit", this.selectedUnit);

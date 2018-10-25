@@ -65,4 +65,5 @@ interface WeatherForecast {
   windSpeed: number;
   overcast: number;
   pressure: number;
+  humidity: number;
 }

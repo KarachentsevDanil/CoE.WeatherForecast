@@ -23,8 +23,8 @@ namespace WeatherForecast.Provider.Dto
             WindSpeed = weatherForecastApiModel.Wind.Speed;
             Overcast = weatherForecastApiModel.Clouds.Overcast;
             Country = weatherForecastApiModel.SystemInfo.Country;
-            Sunrise = new DateTime(weatherForecastApiModel.SystemInfo.Sunrise * 1000).ToShortTimeString();
-            Sunset = new DateTime(weatherForecastApiModel.SystemInfo.Sunset * 1000).ToShortTimeString();
+            Sunrise = new DateTime().AddSeconds(weatherForecastApiModel.SystemInfo.Sunrise).ToLocalTime().ToShortTimeString();
+            Sunset = new DateTime().AddSeconds(weatherForecastApiModel.SystemInfo.Sunset).ToLocalTime().ToShortTimeString();
 
             if (weatherForecastApiModel.Weather != null && weatherForecastApiModel.Weather.Any())
             {

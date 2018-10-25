@@ -28,7 +28,7 @@ namespace WeatherForecast.Provider.Api
             var weatherForecastDto = response.ToWeatherForecastDto();
 
             weatherForecastDto.SetImageUrl(_configuration.ImageUrl);
-            weatherForecastDto.SetCountryImageUrl(_configuration.ImageUrl);
+            weatherForecastDto.SetCountryImageUrl(_configuration.CountryImageUrl);
 
             return weatherForecastDto;
         }
