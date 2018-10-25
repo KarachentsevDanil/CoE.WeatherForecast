@@ -3,13 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2003
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{9EB3C72B-2928-484C-A4E1-C40FEDA11B53}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Common", "1. Common", "{9EB3C72B-2928-484C-A4E1-C40FEDA11B53}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherForecast.Provider", "WheatherForecast.Provider\WeatherForecast.Provider.csproj", "{6E9C5863-9E93-4FFF-BE67-213F5B9D8C1A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Spa", "Spa", "{3EFEB4C4-55C9-422B-A2E0-8D348CD0B3D9}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Spa", "2. Spa", "{3EFEB4C4-55C9-422B-A2E0-8D348CD0B3D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherForecast.AngularSpa", "WeatherForecast.AngularSpa\WeatherForecast.AngularSpa.csproj", "{F1CD479C-2649-466D-8372-4C60D79FBCBF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherForecast.AngularSpa", "WeatherForecast.AngularSpa\WeatherForecast.AngularSpa.csproj", "{F1CD479C-2649-466D-8372-4C60D79FBCBF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Bot", "3. Bot", "{F63481BE-A18C-4E38-9885-E2D6B07634BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherProvider.Bot", "WeatherProvider.Bot\WeatherProvider.Bot.csproj", "{4C6F5A87-E0B8-4E70-95E8-22EDBA5B3F03}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +29,10 @@ Global
 		{F1CD479C-2649-466D-8372-4C60D79FBCBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1CD479C-2649-466D-8372-4C60D79FBCBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1CD479C-2649-466D-8372-4C60D79FBCBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C6F5A87-E0B8-4E70-95E8-22EDBA5B3F03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C6F5A87-E0B8-4E70-95E8-22EDBA5B3F03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C6F5A87-E0B8-4E70-95E8-22EDBA5B3F03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C6F5A87-E0B8-4E70-95E8-22EDBA5B3F03}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +40,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{6E9C5863-9E93-4FFF-BE67-213F5B9D8C1A} = {9EB3C72B-2928-484C-A4E1-C40FEDA11B53}
 		{F1CD479C-2649-466D-8372-4C60D79FBCBF} = {3EFEB4C4-55C9-422B-A2E0-8D348CD0B3D9}
+		{4C6F5A87-E0B8-4E70-95E8-22EDBA5B3F03} = {F63481BE-A18C-4E38-9885-E2D6B07634BA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4F75AF01-9B8A-4FBE-8F8B-DA62518374C8}

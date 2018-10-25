@@ -13,5 +13,18 @@ namespace WeatherForecast.Provider.Models
         public string PlaceName { get; set; }
 
         public string Units { get; set; }
+
+        public static string GetUnitValueForApi(string unit)
+        {
+            switch (unit)
+            {
+                case "celsius":
+                    return "Metric";
+                case "fahrenheit":
+                    return "Imperial";
+                default:
+                    return "Kelvin";
+            }
+        }
     }
 }

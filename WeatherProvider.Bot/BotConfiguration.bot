@@ -1,0 +1,15 @@
+﻿{
+  "name": "multi-turn-prompt",
+  "services": [
+    {
+      "type": "endpoint",
+      "name": "development",
+      "endpoint": "https://localhost:44372/api/messages",
+      "appId": "",
+      "appPassword": "",
+      "id": "24"
+    }
+  ],
+  "padlock": "",
+  "version": "2.0"
+}
