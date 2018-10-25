@@ -1,5 +1,5 @@
 ﻿{
-  "name": "multi-turn-prompt",
+  "name": "weather-forecast-bot",
   "services": [
     {
       "type": "endpoint",

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Bot.Builder;
+using Microsoft.Bot.Builder.AI.Luis;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Integration;
 using Microsoft.Bot.Builder.Integration.AspNet.Core;
@@ -26,7 +27,7 @@ namespace WeatherProvider.Bot
     {
         private bool _isProduction = false;
         private ILoggerFactory _loggerFactory;
-        
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -54,10 +55,25 @@ namespace WeatherProvider.Bot
 
             services.AddWeatherForecastApiDependencies();
 
+            services.AddSingleton(sp =>
+            {
+                var luisApp = new LuisApplication(
+                    applicationId: Configuration["LuisAI:ApiKey"],
+                    endpointKey: Configuration["LuisAI:EndpointKey"],
+                    endpoint: Configuration["LuisAI:EndpointUrl"]);
+
+                var luisPredictionOptions = new LuisPredictionOptions
+                {
+                    IncludeAllIntents = true
+                };
+
+                return new LuisRecognizer(luisApp, luisPredictionOptions, true);
+            });
+
             services.AddBot<WeatherBot>(options =>
             {
-                var secretKey = Configuration.GetSection("botFileSecret")?.Value;
-                var botFilePath = Configuration.GetSection("botFilePath")?.Value;
+                var secretKey = Configuration["botFileSecret"];
+                var botFilePath = Configuration["botFilePath"];
 
                 // Loads .bot configuration file and adds a singleton that your Bot can access through dependency injection.
                 var botConfig = BotConfiguration.Load(botFilePath ?? @".\BotConfiguration.bot", secretKey);
