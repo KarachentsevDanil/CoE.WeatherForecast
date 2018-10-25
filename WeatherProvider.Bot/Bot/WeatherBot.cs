@@ -149,8 +149,18 @@ namespace WeatherProvider.Bot.Bot
             var botWeatherQuery = await _accessors.BotWeatherQuery.GetAsync(stepContext.Context, () => new BotWeatherQueryDto(), cancellationToken);
             botWeatherQuery.Units = stepContext.Context.Activity.Text;
 
-            var weatherForecastDto =
-                await _weatherForecastApi.GetWeatherForecast(botWeatherQuery.ToWeatherForecastDto());
+            WeatherForecastDto weatherForecastDto;
+
+            try
+            {
+                weatherForecastDto =
+                    await _weatherForecastApi.GetWeatherForecast(botWeatherQuery.ToWeatherForecastDto());
+            }
+            catch (Exception)
+            {
+                await stepContext.Context.SendActivityAsync(MessageFactory.Text($"Can't find the weather for {botWeatherQuery.City}. Please try again."), cancellationToken);
+                return await stepContext.EndDialogAsync(cancellationToken: cancellationToken);
+            }
 
             await stepContext.Context.SendActivityAsync(MessageFactory.Text(DisplayWeatherForecast(weatherForecastDto, botWeatherQuery.GetDisplayUnitsValue())), cancellationToken);
 

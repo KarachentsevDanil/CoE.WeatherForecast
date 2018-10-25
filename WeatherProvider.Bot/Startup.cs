@@ -76,7 +76,7 @@ namespace WeatherProvider.Bot
                 var botFilePath = Configuration["botFilePath"];
 
                 // Loads .bot configuration file and adds a singleton that your Bot can access through dependency injection.
-                var botConfig = BotConfiguration.Load(botFilePath ?? @".\BotConfiguration.bot", secretKey);
+                var botConfig = BotConfiguration.Load(botFilePath ?? @".\appsettings.BotConfig.json", secretKey);
                 services.AddSingleton(sp => botConfig ?? throw new InvalidOperationException($"The .bot configuration file could not be loaded."));
 
                 // Retrieve current endpoint.
@@ -151,6 +151,8 @@ namespace WeatherProvider.Bot
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             _loggerFactory = loggerFactory;
+
+            app.UseDeveloperExceptionPage();
 
             app.UseDefaultFiles()
                 .UseStaticFiles()
