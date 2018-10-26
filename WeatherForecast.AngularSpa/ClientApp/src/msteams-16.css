@@ -5,3 +5,23 @@ body.theme-dark {
 body.theme-contrast {
   background: #000;
 }
+
+body.theme-dark .panel.panel-default {
+  background: #2d2c2c !important;
+}
+
+body.theme-dark .panel-default > .panel-heading {
+  background-color: #201F1F;
+  color: white;
+  border-color: #2d2c2c;
+}
+
+body.theme-dark .panel-body {
+  background-color: #201F1F;
+  color: white;
+}
+
+.panel-body {
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}

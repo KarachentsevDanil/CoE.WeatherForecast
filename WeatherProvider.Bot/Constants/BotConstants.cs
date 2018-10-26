@@ -12,8 +12,6 @@
 
         public const string UnitsPromptName = "Units";
 
-        public const string EnterCityNameText = "Please enter the city.";
-
         public const string SelectTemperatureUnitsText = "Please select the temperature units.";
 
         public const string WeatherForecastIntentName = "WeatherForecastIntent";
