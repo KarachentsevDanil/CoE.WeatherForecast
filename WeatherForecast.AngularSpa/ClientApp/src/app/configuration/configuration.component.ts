@@ -8,15 +8,18 @@ declare var microsoftTeams;
   styleUrls: ['./configuration.component.css']
 })
 export class ConfigurationComponent {
-  public cities : NameValue[] =[
-    { name: "London, GB", value: "London" },
+  public cities: NameValue[] = [
+    { name: "Atlanta, US", value: "Atlanta" },
+    { name: "Barcelona, ES", value: "Barcelona" },
     { name: "Berlin, DE", value: "Berlin" },
-    { name: "Madrid, ES", value: "Madrid" },
     { name: "Kharkiv, UA", value: "Kharkiv" },
+    { name: "London, GB", value: "London" },
     { name: "Kyiv, UA", value: "Kyiv" },
     { name: "Lviv, UA", value: "Lviv" },
-    { name: "Odessa, UA", value: "Odessa" },
+    { name: "Madrid, ES", value: "Madrid" },
     { name: "Milan, IT", value: "Milan" },
+    { name: "Odessa, UA", value: "Odessa" },
+    { name: "Toronto, CA", value: "Toronto" }
   ];
   public units: NameValue[] = [
     { name: "Celsius", value: "Metric" },
