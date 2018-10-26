@@ -27,4 +27,8 @@
     <ProjectReference Include="..\WheatherForecast.Provider\WeatherForecast.Provider.csproj" />
   </ItemGroup>
 
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="powershell.exe Compress-Archive -Path $(ProjectDir)Manifest\* -DestinationPath $(TargetDir)weatherforecastbot.zip -Force" />
+  </Target>
+
 </Project>
