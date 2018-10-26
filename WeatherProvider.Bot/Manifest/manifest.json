@@ -31,6 +31,20 @@
       "scopes": [
         "team",
         "personal"
+      ],
+      "commandLists": [
+        {
+          "scopes": [
+            "team",
+            "personal"
+          ],
+          "commands": [
+            {
+              "title": "Weather Forecast",
+              "description": "You can ask the weather forecast for you city"
+            }
+          ]
+        }
       ]
     }
   ],

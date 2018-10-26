@@ -3,6 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <UserSecretsId>a3123f30-d2b6-46ec-8bdf-4351e9b25b89</UserSecretsId>
+    <ApplicationInsightsResourceId>/subscriptions/cd4256c9-ff19-4683-b265-fb3432e78249/resourcegroups/WeatherProvider.Bot/providers/microsoft.insights/components/WeatherProvider.Bot</ApplicationInsightsResourceId>
+    <ApplicationInsightsAnnotationResourceId>/subscriptions/cd4256c9-ff19-4683-b265-fb3432e78249/resourcegroups/WeatherProvider.Bot/providers/microsoft.insights/components/WeatherProvider.Bot</ApplicationInsightsAnnotationResourceId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.5.1" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.5" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
@@ -25,6 +28,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WheatherForecast.Provider\WeatherForecast.Provider.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">

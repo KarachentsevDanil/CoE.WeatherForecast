@@ -9,10 +9,36 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 
   <script src="https://statics.teams.microsoft.com/sdk/v1.0/js/MicrosoftTeams.min.js" type="text/javascript"></script>
-  <link rel="stylesheet" type="text/html" href="msteams-16.css">
-
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+  <script>
+    (function () {
+      'use strict';
 
+      // Call the initialize API first
+      microsoftTeams.initialize();
+      
+      // Check the initial theme user chose and respect it
+      microsoftTeams.getContext(function (context) {
+        if (context && context.theme) {
+          setTheme(context.theme);
+        }
+      });
+
+      // Handle theme changes
+      microsoftTeams.registerOnThemeChangeHandler(function (theme) {
+        setTheme(theme);
+      });
+      
+      // Set the desired theme
+      function setTheme(theme) {
+        if (theme) {
+          // Possible values for theme: 'default', 'light', 'dark' and 'contrast'
+          document.body.className = 'theme-' + (theme === 'default' ? 'light' : theme);
+        }
+      }
+    })();
+
+  </script>
 </head>
 <body>
   <app-root>Loading...</app-root>

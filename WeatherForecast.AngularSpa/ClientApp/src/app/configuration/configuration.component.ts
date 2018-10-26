@@ -15,7 +15,8 @@ export class ConfigurationComponent {
     { name: "Kharkiv, UA", value: "Kharkiv" },
     { name: "Kyiv, UA", value: "Kyiv" },
     { name: "Lviv, UA", value: "Lviv" },
-    { name: "Odessa, UA", value: "Odessa" }
+    { name: "Odessa, UA", value: "Odessa" },
+    { name: "Milan, IT", value: "Milan" },
   ];
   public units: NameValue[] = [
     { name: "Celsius", value: "Metric" },
@@ -23,12 +24,19 @@ export class ConfigurationComponent {
     { name: "Kelvin", value: "Kelvin" }
   ];
 
-  public selectedCity = "Kharkiv";
-  public selectedUnit = "Metric";
+  public selectedCity : string;
+  public selectedUnit : string;
 
   constructor() {
+    let city = localStorage.getItem("City");
+    let unit = localStorage.getItem("Unit");
+
+    this.selectedCity = city ? city : "Kharkiv";
+    this.selectedUnit = unit ? unit : "Metric";
+
     this.applySelected();
     this.initMicrosoftTeams();
+
     microsoftTeams.settings.setValidityState(true);
   }
   
@@ -41,19 +49,7 @@ export class ConfigurationComponent {
     microsoftTeams.initialize();
 
     microsoftTeams.settings.setValidityState(true);
-
-    // Check the initial theme user chose and respect it
-    microsoftTeams.getContext(function (context) {
-      if (context && context.theme) {
-        setTheme(context.theme);
-      }
-    });
-
-    // Handle theme changes
-    microsoftTeams.registerOnThemeChangeHandler(function (theme) {
-      setTheme(theme);
-    });
-
+    
     // Save configuration changes
     microsoftTeams.settings.registerOnSaveHandler(function (saveEvent) {
       // Let the Microsoft Teams platform know what you want to load based on
@@ -68,29 +64,7 @@ export class ConfigurationComponent {
       // see an error indicating that the configuration settings could not be saved.
       saveEvent.notifySuccess();
     });
-
-    // Logic to let the user configure what they want to see in the tab being loaded
-    //document.addEventListener('DOMContentLoaded', function () {
-    //  var tabChoice = document.getElementById('tabChoice');
-    //  if (tabChoice) {
-    //    tabChoice.onchange = function () {
-    //      var selectedTab = this[this.selectedIndex].value;
-
-    //      // This API tells Microsoft Teams to enable the 'Save' button. Since Microsoft Teams always assumes
-    //      // an initial invalid state, without this call the 'Save' button will never be enabled.
-    //      microsoftTeams.settings.setValidityState(selectedTab === 'first' || selectedTab === 'second');
-    //    };
-    //  }
-    //});
-
-    // Set the desired theme
-    function setTheme(theme) {
-      if (theme) {
-        // Possible values for theme: 'default', 'light', 'dark' and 'contrast'
-        document.body.className = 'theme-' + (theme === 'default' ? 'light' : theme);
-      }
-    }
-
+    
     // Create the URL that Microsoft Teams will load in the tab. You can compose any URL even with query strings.
     function createTabUrl() {
       return window.location.protocol + '//' + window.location.host + '/weather-forecast';
