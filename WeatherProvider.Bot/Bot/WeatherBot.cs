@@ -11,6 +11,7 @@ using Microsoft.Bot.Schema;
 using WeatherForecast.Provider.Api;
 using WeatherForecast.Provider.Dto;
 using WeatherProvider.Bot.Constants;
+using WeatherProvider.Bot.Dialogs;
 using WeatherProvider.Bot.Model;
 using WeatherProvider.Bot.State;
 
@@ -18,25 +19,23 @@ namespace WeatherProvider.Bot.Bot
 {
     public class WeatherBot : IBot
     {
-        private readonly IWeatherForecastApi _weatherForecastApi;
-        private readonly WeatherBotAccessors _accessors;
         private readonly DialogSet _dialogs;
         private readonly LuisRecognizer _luisRecognizer;
+        private readonly IWeatherDialog _weatherDialog;
+        private readonly WeatherBotAccessors _accessors;
 
-        public WeatherBot(WeatherBotAccessors accessors, IWeatherForecastApi weatherForecastApi, LuisRecognizer luisRecognizer)
+        public WeatherBot(WeatherBotAccessors accessors, LuisRecognizer luisRecognizer, IWeatherDialog weatherDialog)
         {
             _accessors = accessors;
-            _weatherForecastApi = weatherForecastApi;
             _luisRecognizer = luisRecognizer;
+            _weatherDialog = weatherDialog;
 
             _dialogs = new DialogSet(accessors.ConversationDialogState);
 
             var waterfallSteps = new WaterfallStep[]
             {
-                //CityStepAsync,
-                //StoreCityNameStepAsync,
-                SelectUnitsStepAsync,
-                DisplayWeatherForecastStepAsync
+                _weatherDialog.SelectUnitsStepAsync,
+                _weatherDialog.DisplayWeatherForecastStepAsync
             };
 
             // Add named dialogs to the DialogSet. These names are saved in the dialog state.
@@ -58,35 +57,11 @@ namespace WeatherProvider.Bot.Bot
 
                 if (dialogContext.ActiveDialog == null)
                 {
-                    var result = await _luisRecognizer.RecognizeAsync(turnContext, cancellationToken);
-                    var topIntent = result?.GetTopScoringIntent();
-
-                    if (topIntent.HasValue && topIntent.Value.intent == BotConstants.WeatherForecastIntentName)
-                    {
-                        var city = result.Entities["City"]?.FirstOrDefault()?.ToString();
-
-                        if (!string.IsNullOrEmpty(city))
-                        {
-                            var results = await dialogContext.ContinueDialogAsync(cancellationToken);
-
-                            var weatherQuery = await _accessors.BotWeatherQuery.GetAsync(turnContext, () => new BotWeatherQueryDto(), cancellationToken);
-                            weatherQuery.City = city;
-
-                            if (results.Status == DialogTurnStatus.Empty)
-                            {
-                                await dialogContext.BeginDialogAsync(BotConstants.DialogName, null, cancellationToken);
-                            }
-                        }
-                    }
+                    await RecognizeUserIntent(turnContext, cancellationToken, dialogContext);
                 }
                 else
                 {
-                    var results = await dialogContext.ContinueDialogAsync(cancellationToken);
-
-                    if (results.Status == DialogTurnStatus.Empty)
-                    {
-                        await dialogContext.BeginDialogAsync(BotConstants.DialogName, null, cancellationToken);
-                    }
+                    await BeginWeatherDialog(dialogContext, cancellationToken);
                 }
             }
             else if (turnContext.Activity.Type == ActivityTypes.ConversationUpdate)
@@ -106,69 +81,37 @@ namespace WeatherProvider.Bot.Bot
             await _accessors.UserState.SaveChangesAsync(turnContext, false, cancellationToken);
         }
 
+        private async Task RecognizeUserIntent(ITurnContext turnContext, CancellationToken cancellationToken, DialogContext dialogContext)
+        {
+            var result = await _luisRecognizer.RecognizeAsync(turnContext, cancellationToken);
+            var topIntent = result?.GetTopScoringIntent();
+
+            if (topIntent.HasValue && topIntent.Value.intent == BotConstants.WeatherForecastIntentName)
+            {
+                var city = result.Entities["City"]?.FirstOrDefault()?.ToString();
+
+                if (!string.IsNullOrEmpty(city))
+                {
+                    var weatherQuery = await _accessors.BotWeatherQuery.GetAsync(turnContext, () => new BotWeatherQueryDto(), cancellationToken);
+                    weatherQuery.City = city;
+
+                    await BeginWeatherDialog(dialogContext, cancellationToken);
+                }
+            }
+        }
+
+        private static async Task BeginWeatherDialog(DialogContext dialogContext, CancellationToken cancellationToken)
+        {
+            var results = await dialogContext.ContinueDialogAsync(cancellationToken);
+
+            if (results.Status == DialogTurnStatus.Empty)
+            {
+                await dialogContext.BeginDialogAsync(BotConstants.DialogName, null, cancellationToken);
+            }
+        }
+        
         #region Dialog Handlers
 
-        private async Task<DialogTurnResult> CityStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
-        {
-            return await stepContext.PromptAsync(BotConstants.CityPromptName,
-                new PromptOptions { Prompt = MessageFactory.Text(BotConstants.EnterCityNameText) }, cancellationToken);
-        }
-
-        private async Task<DialogTurnResult> StoreCityNameStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
-        {
-            var weatherQuery = await _accessors.BotWeatherQuery.GetAsync(stepContext.Context, () => new BotWeatherQueryDto(), cancellationToken);
-            weatherQuery.City = (string)stepContext.Result;
-            return await SelectUnitsStepAsync(stepContext, cancellationToken);
-        }
-
-        private static async Task<DialogTurnResult> SelectUnitsStepAsync(WaterfallStepContext step, CancellationToken cancellationToken)
-        {
-            return await step.PromptAsync(BotConstants.UnitsPromptName, GenerateUnits(step.Context.Activity), cancellationToken);
-        }
-
-        private static PromptOptions GenerateUnits(Activity activity)
-        {
-            // Create options for the prompt
-            var options = new PromptOptions
-            {
-                Prompt = activity.CreateReply(BotConstants.SelectTemperatureUnitsText),
-                Choices = new List<Choice>
-                {
-                    new Choice { Value = "Celsius" },
-                    new Choice { Value = "Fahrenheit" },
-                    new Choice { Value = "Kelvin" }
-                },
-            };
-
-            return options;
-        }
-
-        private async Task<DialogTurnResult> DisplayWeatherForecastStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
-        {
-            // Get the current profile object from user state.
-            var botWeatherQuery = await _accessors.BotWeatherQuery.GetAsync(stepContext.Context, () => new BotWeatherQueryDto(), cancellationToken);
-            botWeatherQuery.Units = stepContext.Context.Activity.Text;
-
-            WeatherForecastDto weatherForecastDto;
-
-            try
-            {
-                weatherForecastDto =
-                    await _weatherForecastApi.GetWeatherForecast(botWeatherQuery.ToWeatherForecastDto());
-            }
-            catch (Exception)
-            {
-                await stepContext.Context.SendActivityAsync(MessageFactory.Text($"Can't find the weather for {botWeatherQuery.City}. Please try again."), cancellationToken);
-                return await stepContext.EndDialogAsync(cancellationToken: cancellationToken);
-            }
-
-            await stepContext.Context.SendActivityAsync(MessageFactory.Text(DisplayWeatherForecast(weatherForecastDto, botWeatherQuery.GetDisplayUnitsValue())), cancellationToken);
-
-            await stepContext.Context.SendActivityAsync(MessageFactory.Text(BotConstants.RestartBotTest), cancellationToken);
-
-            // WaterfallStep always finishes with the end of the Waterfall or with another dialog, here it is the end.
-            return await stepContext.EndDialogAsync(cancellationToken: cancellationToken);
-        }
 
         private static async Task SendWelcomeMessageAsync(ITurnContext turnContext, CancellationToken cancellationToken)
         {
@@ -183,12 +126,6 @@ namespace WeatherProvider.Bot.Bot
             }
         }
 
-        private string DisplayWeatherForecast(WeatherForecastDto dto, string temperatureUnit)
-        {
-            return $"{dto.Place}, {dto.Country}." +
-                   $" {dto.Temperature} {temperatureUnit} temperature from {dto.MinTemperature} {temperatureUnit} to {dto.MaxTemperature} {temperatureUnit}," +
-                   $" {dto.WindSpeed} m/s, {dto.Pressure} hPa, humidity: {dto.Humidity}%, overcast: {dto.Overcast}%";
-        }
         #endregion
     }
 }

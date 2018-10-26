@@ -18,6 +18,10 @@ namespace WeatherForecast.Provider.Models
         {
             switch (unit)
             {
+                case "1":
+                    return "Metric";
+                case "2":
+                    return "Imperial";
                 case "celsius":
                     return "Metric";
                 case "fahrenheit":

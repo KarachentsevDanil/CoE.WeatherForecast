@@ -17,8 +17,10 @@ namespace WeatherProvider.Bot.Model
         {
             switch (Units)
             {
+                case "1": return "°С";
+                case "2": return "°F";
                 case "Celsius": return "°С";
-                case "Fahrenheit": return "°С";
+                case "Fahrenheit": return "°F";
                 default: return "°K";
             }
         }

@@ -18,6 +18,7 @@ using WeatherForecast.Provider;
 using WeatherForecast.Provider.Configuration;
 using WeatherForecast.Provider.Constants;
 using WeatherProvider.Bot.Bot;
+using WeatherProvider.Bot.Dialogs;
 using WeatherProvider.Bot.Model;
 using WeatherProvider.Bot.State;
 
@@ -145,6 +146,8 @@ namespace WeatherProvider.Bot
 
                 return accessors;
             });
+
+            services.AddTransient<IWeatherDialog, WeatherDialog>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

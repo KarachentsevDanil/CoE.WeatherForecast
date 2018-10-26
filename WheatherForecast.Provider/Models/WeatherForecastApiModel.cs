@@ -47,10 +47,10 @@ namespace WeatherForecast.Provider.Models
 
         public int Humidity { get; set; }
 
-        [JsonProperty(PropertyName = "temp_min")]
+        [JsonProperty(PropertyName = "temp_max")]
         public double MaxTemperature { get; set; }
 
-        [JsonProperty(PropertyName = "temp_max")]
+        [JsonProperty(PropertyName = "temp_min")]
         public double MinTemperature { get; set; }
     }
 
